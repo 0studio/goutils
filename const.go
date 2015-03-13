@@ -1,5 +1,9 @@
 package goutils
 
+import (
+	"time"
+)
+
 const (
 	DAY_SECONDS    = 24 * 60 * 60
 	HOUR_SECONDS   = 60 * 60
