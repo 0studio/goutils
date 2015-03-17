@@ -50,6 +50,10 @@ func Int642Str(v int64) string {
 func Uint642Str(v uint64) string {
 	return strconv.FormatUint(v, 10)
 }
+
+func Float642Str(v float64) string {
+	return strconv.FormatFloat(v, 'E', -1, 64)
+}
 func Str2UInt32(str string, defaultvalue uint32) (value uint32) {
 	return uint32(Str2Int(str, int(defaultvalue)))
 }
