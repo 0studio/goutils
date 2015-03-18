@@ -85,6 +85,10 @@ func RandInRange(min int, max int) int {
 func Rand32InRange(min int32, max int32) int32 {
 	return rand.Int31n((max-min)+1) + min
 }
+func RandFloatInRange(min, max float64) float64 {
+	return min + rand.Float64()*(max-min)
+}
+
 func IsFileExists(name string) bool {
 	_, err := os.Stat(name)
 	return !os.IsNotExist(err)
