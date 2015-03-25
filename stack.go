@@ -14,7 +14,7 @@ func ProtectFuncWithLogger(fun func(), _log logger.Logger) {
 			for i := 0; i < 10; i++ {
 				funcName, file, line, ok := runtime.Caller(i)
 				if ok {
-					_log.Errorf("frame %v:[func:%v,file:%v,line:%v]\n", i, runtime.FuncForPC(funcName).Name(), file, line)
+					_log.Errorf("frame %v:[%v,file:%v,line:%v]", i, runtime.FuncForPC(funcName).Name(), file, line)
 				}
 			}
 		}
@@ -28,7 +28,7 @@ func ProtectFunc(fun func()) {
 			for i := 0; i < 10; i++ {
 				funcName, file, line, ok := runtime.Caller(i)
 				if ok {
-					log.Errorf("frame %v:[func:%v,file:%v,line:%v]\n", i, runtime.FuncForPC(funcName).Name(), file, line)
+					log.Errorf("frame %v:[%v,file:%v,line:%v]", i, runtime.FuncForPC(funcName).Name(), file, line)
 				}
 			}
 		}
@@ -40,7 +40,7 @@ func PrintStack() {
 		funcName, file, line, ok := runtime.Caller(i)
 		if ok {
 			// fmt.Printf("frame %v:[func:%v,file:%v,line:%v]\n", i, runtime.FuncForPC(funcName).Name(), file, line)
-			log.Errorf("frame %v:[func:%v,file:%v,line:%v]\n", i, runtime.FuncForPC(funcName).Name(), file, line)
+			log.Errorf("frame %v:[func:%v,file:%v,line:%v]", i, runtime.FuncForPC(funcName).Name(), file, line)
 		}
 	}
 
