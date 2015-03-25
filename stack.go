@@ -2,10 +2,25 @@ package goutils
 
 import (
 	// "fmt"
+	"github.com/0studio/logger"
 	log "github.com/cihub/seelog"
 	"runtime"
 )
 
+func ProtectFuncWithLogger(fun func(), _log logger.Logger) {
+	defer func() {
+		if x := recover(); x != nil {
+			_log.Errorf("%v", x)
+			for i := 0; i < 10; i++ {
+				funcName, file, line, ok := runtime.Caller(i)
+				if ok {
+					_log.Errorf("frame %v:[func:%v,file:%v,line:%v]\n", i, runtime.FuncForPC(funcName).Name(), file, line)
+				}
+			}
+		}
+	}()
+	fun()
+}
 func ProtectFunc(fun func()) {
 	defer func() {
 		if x := recover(); x != nil {
