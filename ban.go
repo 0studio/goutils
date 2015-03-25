@@ -4,6 +4,7 @@ import (
 	"github.com/0studio/cachemap"
 	"github.com/0studio/logger"
 	"net"
+	"strings"
 	"time"
 )
 
@@ -28,7 +29,8 @@ func NewBan(log logger.Logger) (ban Ban) {
 	return
 }
 
-func (ban *Ban) IsBannedIP(ip net.IP, now time.Time) (isBanned bool) {
+func (ban *Ban) IsBannedIP(addr net.Addr, now time.Time) (isBanned bool) {
+	ip := net.ParseIP(strings.Split(addr.String(), ":")[0])
 	intip := IP2Int(ip)
 	_, isBanned = ban.ips.Get(intip, now)
 	return
@@ -49,14 +51,15 @@ func (ban *Ban) AddBanUin(uin uint64, now time.Time, seconds int, reason string)
 func (ban *Ban) AddDefaultBinUin(uin uint64, now time.Time, reason string) {
 	ban.AddBanUin(uin, now, (DEFAULT_UIN_BAN_SECONDS + int(LCG())%DEFAULT_UIN_BAN_SECONDS), reason)
 }
-func (ban *Ban) AddBanIP(ip net.IP, now time.Time, seconds int, reason string) {
+func (ban *Ban) AddBanIP(addr net.Addr, now time.Time, seconds int, reason string) {
 	if ban.log != nil {
-		ban.log.Warn("ban_ip_for_reason : ", reason, ip.String())
+		ban.log.Warn("ban_ip_for_reason : ", reason, addr.String())
 	}
+	ip := net.ParseIP(strings.Split(addr.String(), ":")[0])
 
 	intip := IP2Int(ip)
 	ban.ips.Put(intip, cachemap.NewCacheObject(true, now, seconds))
 }
-func (ban *Ban) AddDosBan(ip net.IP, now time.Time, reason string) {
-	ban.AddBanIP(ip, now, (DOS_BAN_SECONDS + int(LCG())%DOS_BAN_SECONDS), reason)
+func (ban *Ban) AddDosBan(addr net.Addr, now time.Time, reason string) {
+	ban.AddBanIP(addr, now, (DOS_BAN_SECONDS + int(LCG())%DOS_BAN_SECONDS), reason)
 }
