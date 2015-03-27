@@ -58,7 +58,7 @@ func (ban *Ban) AddDefaultBinUin(uin uint64, now time.Time, reason string) {
 	ban.AddBanUin(uin, now, (DEFAULT_UIN_BAN_SECONDS + int(LCG())%DEFAULT_UIN_BAN_SECONDS), reason)
 }
 func (ban *Ban) AddBanIP(addr net.Addr, now time.Time, seconds int, reason string) {
-	if ban.log != nil {
+	if ban.log != nil && reason != "" {
 		ban.log.Warn("ban_ip_for_reason : ", reason, addr.String())
 	}
 
@@ -66,7 +66,7 @@ func (ban *Ban) AddBanIP(addr net.Addr, now time.Time, seconds int, reason strin
 	ban.ips.Put(intip, cachemap.NewCacheObject(true, now, seconds))
 }
 func (ban *Ban) AddBanIPByString(ipStr string, now time.Time, seconds int, reason string) {
-	if ban.log != nil {
+	if ban.log != nil && reason != "" {
 		ban.log.Warn("ban_ip_for_reason : ", reason, ipStr)
 	}
 	intip := IPStr2Int(ipStr)
