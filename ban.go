@@ -60,6 +60,15 @@ func (ban *Ban) AddBanIP(addr net.Addr, now time.Time, seconds int, reason strin
 	intip := IP2Int(ip)
 	ban.ips.Put(intip, cachemap.NewCacheObject(true, now, seconds))
 }
+func (ban *Ban) AddBanIPByString(ipStr string, now time.Time, seconds int, reason string) {
+	if ban.log != nil {
+		ban.log.Warn("ban_ip_for_reason : ", reason, ipStr)
+	}
+	ip := net.ParseIP(ipStr)
+
+	intip := IP2Int(ip)
+	ban.ips.Put(intip, cachemap.NewCacheObject(true, now, seconds))
+}
 func (ban *Ban) AddDosBan(addr net.Addr, now time.Time, reason string) {
 	ban.AddBanIP(addr, now, (DOS_BAN_SECONDS + int(LCG())%DOS_BAN_SECONDS), reason)
 }
