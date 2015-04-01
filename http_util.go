@@ -5,6 +5,8 @@ import (
 	"encoding/hex"
 	// "github.com/cihub/seelog"
 	"bytes"
+	"crypto/sha1"
+	"io"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -38,6 +40,11 @@ func GetHexMd5(str string) string {
 	h.Write([]byte(str))
 	return hex.EncodeToString(h.Sum(nil))
 
+}
+func GetSha1(str string) string {
+	t := sha1.New()
+	io.WriteString(t, data)
+	return string(t.Sum(nil))
 }
 
 // func postHttpResponseAsJson(urlStr string, values url.Values) (data []byte, err error) {
