@@ -6,6 +6,7 @@ import (
 	// "github.com/cihub/seelog"
 	"bytes"
 	"crypto/sha1"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"net"
@@ -43,8 +44,8 @@ func GetHexMd5(str string) string {
 }
 func GetSha1(str string) string {
 	t := sha1.New()
-	io.WriteString(t, data)
-	return string(t.Sum(nil))
+	io.WriteString(t, str)
+	return fmt.Sprintf("%x", t.Sum(nil))
 }
 
 // func postHttpResponseAsJson(urlStr string, values url.Values) (data []byte, err error) {
