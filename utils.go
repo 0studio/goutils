@@ -201,6 +201,15 @@ func GetDurToNextDeadlineTime(now time.Time, hour int, min int, seconds int) (du
 	dur = int(deadlineTime.Sub(now).Seconds())
 	return
 }
+func GetDurToNextDeadlineTimeDuration(now time.Time, hour int, min int, seconds int) (dur time.Duration) {
+	deadlineTime := time.Date(now.Year(), now.Month(), now.Day(), hour, min, seconds, 0, now.Location())
+	if deadlineTime.Before(now) {
+		tomorrow := now.Add(time.Hour * 24)
+		deadlineTime = time.Date(tomorrow.Year(), tomorrow.Month(), tomorrow.Day(), hour, min, seconds, 0, now.Location())
+	}
+	dur = deadlineTime.Sub(now)
+	return
+}
 func IsBeforeHMS(now time.Time, hour int, min int, seconds int) bool {
 	deadlineTime := time.Date(now.Year(), now.Month(), now.Day(), hour, min, seconds, 0, now.Location())
 	return now.Before(deadlineTime)
