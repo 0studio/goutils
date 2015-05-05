@@ -1,7 +1,9 @@
 package goutils
 
 import (
+	"crypto/hmac"
 	"crypto/md5"
+	"crypto/sha1"
 	"encoding/binary"
 	"encoding/hex"
 	"fmt"
@@ -564,4 +566,12 @@ func GetFormatDate(time time.Time) (timeStr string) {
 	strs := []string{year, monthStr, dayStr}
 	timeStr = strings.Join(strs, "-")
 	return
+}
+
+// HMAC-SHA1加密算
+func HmacSha1(key []byte, data []byte) string {
+	//hmac ,use sha1
+	mac := hmac.New(sha1.New, key)
+	mac.Write(data)
+	return fmt.Sprintf("%x", mac.Sum(nil))
 }
