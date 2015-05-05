@@ -71,7 +71,36 @@ func PostHttpResponse(urlStr string, content []byte, now time.Time, timeout int)
 	return body, nil
 
 }
+func PostHttpResponseWithCookie(urlStr string, content []byte, now time.Time, timeout int, cookies []*http.Cookie) (data []byte, err error) {
+	// expire := time.Now().AddDate(0, 0, 1)
+	//    cookie := http.Cookie{Name: "testcookiename", Value: "testcookievalue", Path: "/", Expires: expire, MaxAge: 86400}
+	// cookie := &http.Cookie{
+	//       Name:  http.CanonicalHeaderKey("uid-test"), //Name值为Uid-Test
+	//       Value: "1234",
+	//   }
+	//   r.AddCookie(cookie)
 
+	client := HttpWithTimeOut(now, timeout)
+	req, err := http.NewRequest("POST", urlStr, bytes.NewReader(content))
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Content-Type", "text/html")
+
+	for _, cookie := range cookies {
+		req.AddCookie(cookie)
+	}
+
+	response, err := client.Do(req)
+	if err != nil {
+		return
+	}
+
+	defer response.Body.Close()
+	body, _ := ioutil.ReadAll(response.Body)
+	return body, nil
+
+}
 func PostFormHttpResponse(urlStr string, v url.Values, now time.Time, timeout int) (data []byte, err error) {
 	client := HttpWithTimeOut(now, timeout)
 	respose, err := client.PostForm(urlStr, v)
