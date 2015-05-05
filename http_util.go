@@ -12,6 +12,7 @@ import (
 	"net"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 )
 
@@ -36,6 +37,9 @@ func UrlEncode(urlStr string) string {
 	return url.QueryEscape(urlStr)
 }
 
+func GetHexMd5UpCase(str string) string {
+	return strings.ToUpper(GetHexMd5(str))
+}
 func GetHexMd5(str string) string {
 	h := md5.New()
 	h.Write([]byte(str))
