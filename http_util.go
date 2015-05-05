@@ -17,6 +17,33 @@ import (
 )
 
 ////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+func GetHttpResponseWithCookie(urlStr string, cookies []*http.Cookie, now time.Time, timeout int) (data []byte, err error) {
+	client := HttpWithTimeOut(now, timeout)
+	req, err := http.NewRequest("GET", urlStr, nil)
+	if err != nil {
+		return nil, err
+	}
+	// req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+	for _, cookie := range cookies {
+		req.AddCookie(cookie)
+	}
+
+	response, err := client.Do(req)
+	if err != nil {
+		return
+	}
+
+	defer response.Body.Close()
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		return
+	}
+
+	return body, nil
+}
 func GetHttpResponseAsJson(urlStr string, now time.Time, timeout int) (data []byte, err error) {
 	client := HttpWithTimeOut(now, timeout)
 	response, err := client.Get(urlStr)
