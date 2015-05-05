@@ -85,7 +85,7 @@ func PostHttpResponseWithCookie(urlStr string, content []byte, now time.Time, ti
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("Content-Type", "text/html")
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
 	for _, cookie := range cookies {
 		req.AddCookie(cookie)
