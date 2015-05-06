@@ -92,7 +92,7 @@ func GetSha1(str string) string {
 // }
 func PostHttpResponse(urlStr string, content []byte, now time.Time, timeout int) (data []byte, err error) {
 	client := HttpWithTimeOut(now, timeout)
-	response, err := client.Post(urlStr, "text/html", bytes.NewReader(content))
+	response, err := client.Post(urlStr, "application/x-www-form-urlencoded", bytes.NewReader(content))
 	if err != nil {
 		return
 	}
