@@ -4,6 +4,7 @@ import (
 	"crypto/hmac"
 	"crypto/md5"
 	"crypto/sha1"
+	"encoding/base64"
 	"encoding/binary"
 	"encoding/hex"
 	"fmt"
@@ -569,9 +570,15 @@ func GetFormatDate(time time.Time) (timeStr string) {
 }
 
 // HMAC-SHA1加密算
-func HmacSha1(key []byte, data []byte) string {
+func HmacSha1(key []byte, data []byte) []byte {
 	//hmac ,use sha1
 	mac := hmac.New(sha1.New, key)
 	mac.Write(data)
-	return fmt.Sprintf("%x", mac.Sum(nil))
+	return mac.Sum(nil)
+}
+func HmacSha1Base64(key []byte, data []byte) string {
+	//hmac ,use sha1
+	mac := hmac.New(sha1.New, key)
+	mac.Write(data)
+	return base64.StdEncoding.EncodeToString(mac.Sum(nil))
 }
