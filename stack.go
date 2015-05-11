@@ -45,3 +45,12 @@ func PrintStack() {
 	}
 
 }
+func PrintStackWithLogger(_log logger.Logger) {
+	for i := 0; i < 10; i++ {
+		funcName, file, line, ok := runtime.Caller(i)
+		if ok {
+			_log.Errorf("frame %v:[func:%v,file:%v,line:%v]", i, runtime.FuncForPC(funcName).Name(), file, line)
+		}
+	}
+
+}
