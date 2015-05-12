@@ -43,6 +43,12 @@ func IsSameDay(t1 time.Time, t2 time.Time) bool {
 	return (y1 == y2 && m1 == m2 && d1 == d2)
 }
 
+func IsSameWeek(t1 time.Time, t2 time.Time) bool {
+	year1, week1 := t1.ISOWeek()
+	year2, week2 := t1.ISOWeek()
+	return (year1 == year2 && week1 == week2)
+}
+
 func IsSameMonth(t1 time.Time, t2 time.Time) bool {
 	y1, m1, _ := t1.Date()
 	y2, m2, _ := t2.Date()
