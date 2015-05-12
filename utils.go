@@ -15,7 +15,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func Str2uint64(str string, defaultvalue uint64) (value uint64) {
@@ -191,37 +190,6 @@ func Int64ListToString(intLi []int, separator string) string {
 		strLi[index] = strValue
 	}
 	return strings.Join(strLi, separator)
-}
-
-// do some thing at 4:00 am.
-// 获取从现在到 某一时间点 需要多少秒
-func GetDurToNextDeadlineTime(now time.Time, hour int, min int, seconds int) (dur int) {
-	deadlineTime := time.Date(now.Year(), now.Month(), now.Day(), hour, min, seconds, 0, now.Location())
-	if deadlineTime.Before(now) {
-		tomorrow := now.Add(time.Hour * 24)
-		deadlineTime = time.Date(tomorrow.Year(), tomorrow.Month(), tomorrow.Day(), hour, min, seconds, 0, now.Location())
-	}
-	dur = int(deadlineTime.Sub(now).Seconds())
-	return
-}
-func GetDurToNextDeadlineTimeDuration(now time.Time, hour int, min int, seconds int) (dur time.Duration) {
-	deadlineTime := time.Date(now.Year(), now.Month(), now.Day(), hour, min, seconds, 0, now.Location())
-	if deadlineTime.Before(now) {
-		tomorrow := now.Add(time.Hour * 24)
-		deadlineTime = time.Date(tomorrow.Year(), tomorrow.Month(), tomorrow.Day(), hour, min, seconds, 0, now.Location())
-	}
-	dur = deadlineTime.Sub(now)
-	return
-}
-func IsBeforeHMS(now time.Time, hour int, min int, seconds int) bool {
-	deadlineTime := time.Date(now.Year(), now.Month(), now.Day(), hour, min, seconds, 0, now.Location())
-	return now.Before(deadlineTime)
-
-}
-func IsAfterHMS(now time.Time, hour int, min int, seconds int) bool {
-	deadlineTime := time.Date(now.Year(), now.Month(), now.Day(), hour, min, seconds, 0, now.Location())
-	return now.After(deadlineTime)
-
 }
 
 /* 生成随机战斗卡片 */
@@ -400,30 +368,6 @@ func ID2XY(pos int) (x int, y int) {
 	return int(math.Floor(float64(pos) / 3)), int(math.Mod(float64(pos), 3))
 }
 
-/*
-* TIME UTIL
- */
-
-func IsSameDay(t1 time.Time, t2 time.Time) bool {
-	y1, m1, d1 := t1.Date()
-	y2, m2, d2 := t2.Date()
-	return (y1 == y2 && m1 == m2 && d1 == d2)
-}
-
-func IsSameMonth(t1 time.Time, t2 time.Time) bool {
-	y1, m1, _ := t1.Date()
-	y2, m2, _ := t2.Date()
-	return (y1 == y2 && m1 == m2)
-}
-
-// 1=monday  7 =sunday
-func GetWeekDay(t time.Time) int32 {
-	if t.Weekday() == time.Sunday {
-		return 7
-	}
-	return int32(t.Weekday())
-}
-
 // check("1.2.3.4")
 //    check("216.14.49.185")
 //    check("1::16")
@@ -545,27 +489,6 @@ func GetFriendPrimaryKey(Uin uint64, friendUin uint64) (smallUin uint64, bigUin 
 		smallUin = friendUin
 		bigUin = Uin
 	}
-	return
-}
-
-func GetFormatDate(time time.Time) (timeStr string) {
-	year := strconv.Itoa(time.Year())
-	month := time.Month()
-	day := time.Day()
-	monthStr := ""
-	dayStr := ""
-	if month < 10 {
-		monthStr = "0" + strconv.Itoa(int(month))
-	} else {
-		monthStr = strconv.Itoa(int(month))
-	}
-	if day < 10 {
-		dayStr = "0" + strconv.Itoa(day)
-	} else {
-		dayStr = strconv.Itoa(day)
-	}
-	strs := []string{year, monthStr, dayStr}
-	timeStr = strings.Join(strs, "-")
 	return
 }
 
