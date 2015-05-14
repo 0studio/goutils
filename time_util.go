@@ -22,7 +22,6 @@ func IsLeapYear(year int) bool {
 // 返回本月1号， 属于今年第几天
 func GetYearDayOfCurrentMonthFirstDay(now time.Time) int32 {
 	monthTime := time.Date(now.Year(), now.Month(), 1, 0, 0, 0, 0, now.Location())
-	now.Month()
 	return int32(monthTime.YearDay())
 }
 
