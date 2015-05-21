@@ -1,7 +1,7 @@
 package goutils
 
 import (
-	// "fmt"
+	"fmt"
 	"github.com/0studio/logger"
 	log "github.com/cihub/seelog"
 	"runtime"
@@ -10,11 +10,23 @@ import (
 func ProtectFuncWithLogger(fun func(), _log logger.Logger) {
 	defer func() {
 		if x := recover(); x != nil {
-			_log.Errorf("%v", x)
+			if _log != nil {
+				_log.Errorf("%v", x)
+			} else {
+
+				fmt.Println("%v", x)
+			}
+
 			for i := 0; i < 10; i++ {
 				funcName, file, line, ok := runtime.Caller(i)
 				if ok {
-					_log.Errorf("frame %v:[%v,file:%v,line:%v]", i, runtime.FuncForPC(funcName).Name(), file, line)
+					if _log != nil {
+						_log.Errorf("frame %v:[%v,file:%v,line:%v]", i, runtime.FuncForPC(funcName).Name(), file, line)
+					} else {
+						fmt.Printf("frame %v:[%v,file:%v,line:%v]\n", i, runtime.FuncForPC(funcName).Name(), file, line)
+
+					}
+
 				}
 			}
 		}
