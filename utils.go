@@ -56,6 +56,10 @@ func Uint642Str(v uint64) string {
 func Float642Str(v float64) string {
 	return strconv.FormatFloat(v, 'E', -1, 64)
 }
+func Str2Float64(str string) (v float64) {
+	v, _ = strconv.ParseFloat(str, 64)
+	return
+}
 func Str2UInt32(str string, defaultvalue uint32) (value uint32) {
 	return uint32(Str2Int(str, int(defaultvalue)))
 }
