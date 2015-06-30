@@ -168,9 +168,11 @@ func decipher(vv []byte, kk []byte) (decryptcode []byte) {
 }
 
 func TeaDecrypt(in string, k string) (plain string) {
+	return TeaDecryptByteArray([]byte(in), k)
+}
+func TeaDecryptByteArray(inBuff []byte, k string) (plain string) {
 	//检查密钥
 	var decryptcode []byte
-	var inBuff = []byte(in)
 	var key = []byte(k)
 	if key == nil {
 		return plain
