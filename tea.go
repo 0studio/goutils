@@ -39,8 +39,10 @@ func encipher(vv []byte, kk []byte) (encryptcode []byte) {
 }
 
 func TeaEncrypt(in string, k string) (encryptString string) {
+	return TeaEncryptByteArray([]byte(in), k)
+}
+func TeaEncryptByteArray(inBuff []byte, k string) (encryptString string) {
 	var encryptcode []byte
-	var inBuff = []byte(in)
 	var key = []byte(k)
 	if key == nil {
 		return encryptString
