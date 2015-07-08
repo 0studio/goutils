@@ -140,8 +140,9 @@ func StringListToIntList64(strLi []string) (intLi []uint64) {
 }
 
 func SplitAsFloat64Arr(str string, sep string) (ret []float64) {
-	ret = make([]float64, 0)
-	for _, elem := range strings.Split(str, sep) {
+	elems := strings.Split(str, sep)
+	ret = make([]float64, 0, len(elems))
+	for _, elem := range elems {
 		value, err := strconv.ParseFloat(strings.TrimSpace(elem), 64)
 		if err == nil {
 			ret = append(ret, value)
@@ -151,8 +152,9 @@ func SplitAsFloat64Arr(str string, sep string) (ret []float64) {
 
 }
 func SplitAsInt32Arr(str string, sep string) (ret []int32) {
-	ret = make([]int32, 0)
-	for _, elem := range strings.Split(str, sep) {
+	elems := strings.Split(str, sep)
+	ret = make([]int32, 0, len(elems))
+	for _, elem := range elems {
 		value, err := strconv.Atoi(strings.TrimSpace(elem))
 		if err == nil {
 			ret = append(ret, int32(value))
@@ -163,8 +165,9 @@ func SplitAsInt32Arr(str string, sep string) (ret []int32) {
 }
 
 func SplitAsInt8Arr(str string, sep string) (ret []int8) {
-	ret = make([]int8, 0)
-	for _, elem := range strings.Split(str, sep) {
+	elems := strings.Split(str, sep)
+	ret = make([]int8, 0, len(elems))
+	for _, elem := range elems {
 		value, err := strconv.Atoi(strings.TrimSpace(elem))
 		if err == nil {
 			ret = append(ret, int8(value))
