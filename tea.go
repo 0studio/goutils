@@ -39,13 +39,15 @@ func encipher(vv []byte, kk []byte) (encryptcode []byte) {
 }
 
 func TeaEncrypt(in string, k string) (encryptString string) {
+	return string(TeaEncryptByteArray([]byte(in), Str2BytesUnsafe(k)))
+}
+func TeaEncrypt2(in string, k []byte) (ret []byte) {
 	return TeaEncryptByteArray([]byte(in), k)
 }
-func TeaEncryptByteArray(inBuff []byte, k string) (encryptString string) {
+func TeaEncryptByteArray(inBuff []byte, key []byte) (ret []byte) {
 	var encryptcode []byte
-	var key = []byte(k)
 	if key == nil {
-		return encryptString
+		return
 	}
 	random := rand.New(rand.NewSource(99))
 	var plain = make([]byte, 8)
@@ -132,8 +134,8 @@ func TeaEncryptByteArray(inBuff []byte, k string) (encryptString string) {
 			pos = 0
 		}
 	}
-	encryptString = string(encryptcode)
-	return encryptString
+	// encryptString = string(encryptcode)
+	return encryptcode
 }
 
 func decipher(vv []byte, kk []byte) (decryptcode []byte) {
@@ -170,19 +172,21 @@ func decipher(vv []byte, kk []byte) (decryptcode []byte) {
 }
 
 func TeaDecrypt(in string, k string) (plain string) {
-	return TeaDecryptByteArray([]byte(in), k)
+	return string(TeaDecryptByteArray(Str2BytesUnsafe(in), Str2BytesUnsafe(k)))
 }
-func TeaDecryptByteArray(inBuff []byte, k string) (plain string) {
+func TeaDecrypt2(in string, k []byte) (data []byte) {
+	return TeaDecryptByteArray(Str2BytesUnsafe(in), k)
+}
+func TeaDecryptByteArray(inBuff []byte, key []byte) (ret []byte) {
 	//检查密钥
 	var decryptcode []byte
-	var key = []byte(k)
 	if key == nil {
-		return plain
+		return ret
 	}
 	//检查消息字节数是8的倍数，且至少是16字节
 	var mlen = len(inBuff)
 	if mlen%8 != 0 || mlen < 16 {
-		return plain
+		return ret
 	}
 	//得到消息头部，得到明文开始位置，信息存在第一个字节里面，将解密得到的信息的第一个字节与7做与运算
 	var headBuf = make([]byte, 8)
@@ -204,7 +208,7 @@ func TeaDecryptByteArray(inBuff []byte, k string) (plain string) {
 	//用于最后解密明文数组切片
 	var posSlice, countSlice = pos + 3, count
 	if count < 0 {
-		return plain
+		return ret
 	}
 	var plainBuff = make([]byte, 8)
 	var ivCrypt = make([]byte, 8)
@@ -227,7 +231,7 @@ func TeaDecryptByteArray(inBuff []byte, k string) (plain string) {
 			}
 			decryptBuf = decipher(plainBuff, key)
 			if decryptBuf == nil {
-				return plain
+				return
 			}
 			copy(preplain, decryptBuf)
 			for j := 0; j < 8; j++ {
@@ -257,7 +261,7 @@ func TeaDecryptByteArray(inBuff []byte, k string) (plain string) {
 			}
 			decryptBuf = decipher(plainBuff, key)
 			if decryptBuf == nil {
-				return plain
+				return
 			}
 			copy(preplain, decryptBuf)
 			for j := 0; j < 8; j++ {
@@ -284,7 +288,7 @@ func TeaDecryptByteArray(inBuff []byte, k string) (plain string) {
 			}
 			decryptBuf = decipher(plainBuff, key)
 			if decryptBuf == nil {
-				return plain
+				return
 			}
 			copy(preplain, decryptBuf)
 			for j := 0; j < 8; j++ {
@@ -297,7 +301,7 @@ func TeaDecryptByteArray(inBuff []byte, k string) (plain string) {
 		}
 	}
 	decryptcode = decryptcode[posSlice : countSlice+posSlice]
-	plain = string(decryptcode)
+	// plain = string(decryptcode)
 
-	return plain
+	return decryptcode
 }

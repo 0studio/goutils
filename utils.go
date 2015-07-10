@@ -18,7 +18,7 @@ import (
 	"unsafe"
 )
 
-func String2BytesUnsafe(s string) []byte {
+func Str2BytesUnsafe(s string) []byte {
 	return *(*[]byte)(unsafe.Pointer(&s))
 }
 func Str2uint64(str string, defaultvalue uint64) (value uint64) {
