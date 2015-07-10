@@ -15,8 +15,12 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"unsafe"
 )
 
+func String2BytesUnsafe(s string) []byte {
+	return *(*[]byte)(unsafe.Pointer(&s))
+}
 func Str2uint64(str string, defaultvalue uint64) (value uint64) {
 	value, err := strconv.ParseUint(str, 10, 64)
 	if err != nil {
