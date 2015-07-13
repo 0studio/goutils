@@ -39,7 +39,7 @@ func encipher(vv []byte, kk []byte) (encryptcode []byte) {
 }
 
 func TeaEncrypt(in string, k string) (encryptString string) {
-	return string(TeaEncryptByteArray([]byte(in), Str2BytesUnsafe(k)))
+	return string(TeaEncryptByteArray([]byte(in), []byte(k)))
 }
 func TeaEncrypt2(in string, k []byte) (ret []byte) {
 	return TeaEncryptByteArray([]byte(in), k)
@@ -172,10 +172,10 @@ func decipher(vv []byte, kk []byte) (decryptcode []byte) {
 }
 
 func TeaDecrypt(in string, k string) (plain string) {
-	return string(TeaDecryptByteArray(Str2BytesUnsafe(in), Str2BytesUnsafe(k)))
+	return string(TeaDecryptByteArray([]byte(in), []byte(k)))
 }
 func TeaDecrypt2(in string, k []byte) (data []byte) {
-	return TeaDecryptByteArray(Str2BytesUnsafe(in), k)
+	return TeaDecryptByteArray([]byte(in), k)
 }
 func TeaDecryptByteArray(inBuff []byte, key []byte) (ret []byte) {
 	//检查密钥
