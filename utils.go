@@ -18,6 +18,10 @@ import (
 	"unsafe"
 )
 
+// https://github.com/bep/gosandbox/tree/master/unsafestrings
+func Bytes2StrUnsafe(b []byte) string {
+	return *(*string)(unsafe.Pointer(&b))
+}
 func Str2BytesUnsafe(s string) []byte {
 	return *(*[]byte)(unsafe.Pointer(&s))
 }
