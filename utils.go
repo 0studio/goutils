@@ -79,6 +79,10 @@ func Str2UInt32(str string, defaultvalue uint32) (value uint32) {
 func Str2Int32(str string, defaultvalue int32) (value int32) {
 	return int32(Str2Int(str, int(defaultvalue)))
 }
+
+func Str2Int8(str string, defaultvalue int8) (value int8) {
+	return int8(Str2Int(str, int(defaultvalue)))
+}
 func Uint642StrWithZeroEmpty(v uint64) string {
 	if v == 0 {
 		return ""
