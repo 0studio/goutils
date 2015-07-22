@@ -1,0 +1,22 @@
+package goutils
+
+import (
+	"testing"
+)
+
+var contentSha1 string = "{\"orderId\":\"12999763169054705758.1391622817981195\",\"packageName\":\"com.snowcat.casino.eng.test\",\"productId\":\"casino1\",\"purchaseTime\":1437559345515,\"purchaseState\":0,\"developerPayload\":\"abcdefghijklmn\",\"purchaseToken\":\"dcaiagnphmdjagpafbefiemn.AO-J1OyWw972lLBHIBQhkHB80Q2GVkJGhOMkFCgwKtxPB6m9kKmpL4zw1Bm9vyno1VkDhKVD3vcTG3jL865ZuPcJyHEmaxgol-Lr-hCXIy-6gxtmc-C_gypALHjx3uelEn4q0MHoeSCg\"}"
+
+// 私钥
+var priKeySha1 string = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKz0WssMzD9pwfHlEPy8+NFSnsX+CeZoogRyrzAdBkILTVCukOfJeaqS07GSpVgtSk9PcFk3LqY59znddga6Kf6HA6Tpr19T3Os1U3zNeU79X/nT6haw9T4nwRDptWQdSBZmWDkY9wvA28oB3tYSULxlN/S1CEXMjmtpqNw4asHBAgMBAAECgYBzNFj+A8pROxrrC9Ai6aU7mTMVY0Ao7+1r1RCIlezDNVAMvBrdqkCWtDK6h5oHgDONXLbTVoSGSPo62x9xH7Q0NDOn8/bhuK90pVxKzCCI5v6haAg44uqbpt7fZXTNEsnveXlSeAviEKOwLkvyLeFxwTZe3NQJH8K4OqQ1KzxK+QJBANmXzpVdDZp0nAOR34BQWXHHG5aPIP3//lnYCELJUXNB2/JYTN57dv5LlE5/Ckg0Bgak764A/CX62bKhe/b+FMsCQQDLe4F2qHGy7Sa81xatm66mEkG3u88g9qRARdEvgx9SW+F1xBt2k/bU2YI31hB8IYXzL8KW9NzDfQPihBBUFn4jAkEAzbrmq/pLPlo6mHV3qE5QA2+J+hRh0UYVKsVDKkJGLH98gepS45hArbawBne/NP1bJTUVGKP9w7sl0es01hbteQJATzLO/QQq3N15Cl8dMI07uN+6PG0Y/VeCLpH+DWQXuNKSOmgN2GVW2RmfmWP0Hpxdqn2YW3EKy/vIm02TnWbzyQJAXwujUR9u9s8BZI33kw3gQ7bvWVYt8yyiYzWD2Qrnyg08tN5o+JsjW3fEDWHm70jjZIc+l/5FaZ7H5NOYpnVcpA=="
+
+// 公钥
+var pubKeySha1 string = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtWNCg9lWA0S+zw2y6Z8ctGzW78mA+6IY4J+SoH4ZtNCu3987BxPNqCoMj7VTJx1SSvrqAFgmjC9cFUv/Guml6KAt1l+xRQnG7znsLkfe6V8+Bn7u5Q+fw0A/emKvaSpF3+gkOw3rJgOOqR4A+kniSxgV5asFiW0Pka8+MPqD7Kg7LoRkQcM3Iii/XD896/JH00DVz/Kb1wfnJ0LkxdkQFSdv0zQ/2waNLyQROxMgjKrdqbO2u8YWJZJtxoPN0KI+iNwCrlmP5Idmi+EJlsGVknzCJ5528EIhlNCKrQPRYBx/JpIyhylpO6W51/wN7J+xiiGJE2XreMPqW9pft0sUWQIDAQAB"
+
+var signSha1 string = "Z7poFfZMjQjtN8yVcQQAB+5vHgAbkKz8o6c+B1nc5xxVio/HoyrlutrjuUTVmxUiaqURH+T+DyjtV0AIyswHh5jxJJWcgkI0V6yG4GeTycO5STb9W4eH5E7ELnHp/5lPks9z6uwnCid3RKppNPLgbHLMkQX3jZCyIhLdg/+nN2dm7Xe44TZ5GSeGHj/rPeW1iXfVWL7CBKxcE9SmT6Vug5aCqaec3NRACtavlZU/lL5No1o7w4mQ7RVTh9z4yRChjizhh8c9DsetjiCONqUNwreFtuFil6Qb+4aXYkU8aYNEGRj8XElMqyBwVpIkNCi4D1tkiqNYmHwgrJYrlVK4tg=="
+
+func TestVerifyRSASignWithSha1(t *testing.T) {
+	if !VerifyRSASignWithSHA1(pubKeySha1, contentSha1, signSha1) {
+		t.Error("verify_sign_error")
+	}
+
+}
