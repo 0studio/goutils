@@ -18,5 +18,4 @@ func TestVerifyRSASignWithSha1(t *testing.T) {
 	if !VerifyRSASignWithSHA1(pubKeySha1, contentSha1, signSha1) {
 		t.Error("verify_sign_error")
 	}
-
 }
