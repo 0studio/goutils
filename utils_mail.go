@@ -34,15 +34,5 @@ func SendMail(user, password, host, to, subject, body string) error {
 
 // to "jixiuf@qq.com;jixiuf@gmail.com" //
 func SendGMMail(to, subject, body string) (err error) {
-	user := "devops-sky@3ciyuan.com"
-	password := "ouluopssky2"
-	host := "smtp.exmail.qq.com:25"
-	err = SendMail(user, password, host, to, subject, body)
-	if err != nil {
-		fmt.Println("send mail error!")
-		fmt.Println(err)
-	} else {
-		fmt.Println("send mail success!")
-	}
 	return
 }
