@@ -1,7 +1,6 @@
 package goutils
 
 import (
-	"fmt"
 	"net/smtp"
 	"strings"
 )
