@@ -58,6 +58,12 @@ func (list Int32List) IsInList(ele int32) bool {
 func (list Int32List) RemoveZero() Int32List {
 	return list.Remove(0)
 }
+func (list Int32List) Random() int32 {
+	if len(list) == 0 {
+		return 0
+	}
+	return list[rand.Intn(len(list))]
+}
 func (list Int32List) Remove(ele int32) (ret Int32List) {
 	ret = make(Int32List, len(list), len(list))
 	var index int = 0

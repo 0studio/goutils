@@ -132,3 +132,9 @@ func (list *Int8List) Shuffle() {
 		(*list)[i], (*list)[j] = (*list)[j], (*list)[i]
 	}
 }
+func (list Int8List) Random() int8 {
+	if len(list) == 0 {
+		return 0
+	}
+	return list[rand.Intn(len(list))]
+}

@@ -137,3 +137,9 @@ func (list *Int16List) Shuffle() {
 		(*list)[i], (*list)[j] = (*list)[j], (*list)[i]
 	}
 }
+func (list Int16List) Random() int16 {
+	if len(list) == 0 {
+		return 0
+	}
+	return list[rand.Intn(len(list))]
+}
