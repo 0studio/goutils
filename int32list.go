@@ -124,7 +124,8 @@ func (list Int32List) Swap(fromPos, toPos int32) bool {
 	list[toPos] = tmp
 	return true
 }
-func (list *Int32List) Shuffle() {
+
+func (list *Int32List) ShuffleSelf() {
 	// 乱序
 	for i := range *list {
 		j := rand.Intn(i + 1)

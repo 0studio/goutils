@@ -125,7 +125,7 @@ func (list Int8List) Swap(fromPos, toPos int8) bool {
 	list[toPos] = tmp
 	return true
 }
-func (list *Int8List) Shuffle() {
+func (list *Int8List) ShuffleSelf() {
 	// 乱序
 	for i := range *list {
 		j := rand.Intn(i + 1)

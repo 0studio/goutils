@@ -130,7 +130,7 @@ func (list Int16List) Swap(fromPos, toPos int16) bool {
 	list[toPos] = tmp
 	return true
 }
-func (list *Int16List) Shuffle() {
+func (list *Int16List) ShuffleSelf() {
 	// 乱序
 	for i := range *list {
 		j := rand.Intn(i + 1)
