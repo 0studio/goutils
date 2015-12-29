@@ -10,6 +10,18 @@ import (
 	"time"
 )
 
+func GetIpFromAddress(address string) string { // address="ip:port"
+	list := strings.Split(address, ":")
+	if len(list) == 2 {
+		return list[0]
+	}
+	list = strings.Split(address, "/")
+	if len(list) == 2 {
+		return list[0]
+	}
+	return ""
+}
+
 // use command :nc ns1.dnspod.net 6666
 func GetLocalPublicIpUseDnspod() (string, error) {
 	timeout := 10 * time.Second
