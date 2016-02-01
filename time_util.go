@@ -16,7 +16,7 @@ func GetMonthDayCount(year, month int) int { // month[1~12]
 	return monthDays[month]
 }
 func IsLeapYear(year int) bool {
-	return year%4 == 0 && (year%100 != 0 || year%400 == 0)
+	return (year%4 == 0 && year%100 != 0) || year%400 == 0
 }
 
 // 返回本月1号， 属于今年第几天
