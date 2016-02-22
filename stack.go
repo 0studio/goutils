@@ -2,9 +2,10 @@ package goutils
 
 import (
 	"fmt"
+	"runtime"
+
 	"github.com/0studio/logger"
 	log "github.com/cihub/seelog"
-	"runtime"
 )
 
 func ProtectFuncWithLoggerAndDeferFun(fun func(), deferFunc func(), _log logger.Logger) {
@@ -17,7 +18,7 @@ func ProtectFuncWithLoggerAndDeferFun(fun func(), deferFunc func(), _log logger.
 				fmt.Println("%v", x)
 			}
 
-			for i := 0; i < 10; i++ {
+			for i := 0; i < 20; i++ {
 				funcName, file, line, ok := runtime.Caller(i)
 				if ok {
 					if _log != nil {
@@ -44,7 +45,7 @@ func ProtectFuncWithLogger(fun func(), _log logger.Logger) {
 				fmt.Println("%v", x)
 			}
 
-			for i := 0; i < 10; i++ {
+			for i := 0; i < 20; i++ {
 				funcName, file, line, ok := runtime.Caller(i)
 				if ok {
 					if _log != nil {
@@ -64,7 +65,7 @@ func ProtectFunc(fun func()) {
 	defer func() {
 		if x := recover(); x != nil {
 			log.Errorf("%v", x)
-			for i := 0; i < 10; i++ {
+			for i := 0; i < 20; i++ {
 				funcName, file, line, ok := runtime.Caller(i)
 				if ok {
 					log.Errorf("frame %v:[%v,file:%v,line:%v]", i, runtime.FuncForPC(funcName).Name(), file, line)
@@ -75,7 +76,7 @@ func ProtectFunc(fun func()) {
 	fun()
 }
 func PrintStack() {
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 20; i++ {
 		funcName, file, line, ok := runtime.Caller(i)
 		if ok {
 			// fmt.Printf("frame %v:[func:%v,file:%v,line:%v]\n", i, runtime.FuncForPC(funcName).Name(), file, line)
@@ -85,7 +86,7 @@ func PrintStack() {
 
 }
 func PrintStackWithLogger(_log logger.Logger) {
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 20; i++ {
 		funcName, file, line, ok := runtime.Caller(i)
 		if ok {
 			_log.Errorf("frame %v:[func:%v,file:%v,line:%v]", i, runtime.FuncForPC(funcName).Name(), file, line)
